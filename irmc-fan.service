@@ -1,0 +1,14 @@
+[Unit]
+Description=Eigene Lüfterkurve iRMC S4
+After=multi-user.target
+
+[Service]
+ExecStartPre=/sbin/modprobe ipmi_si
+ExecStartPre=/sbin/modprobe ipmi_devintf
+ExecStart=/usr/bin/python3 /opt/s4-irmc-tool/irmc-fan.py
+ExecStopPost=/usr/bin/python3 /opt/s4-irmc-tool/irmc-fan.py --auto
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
